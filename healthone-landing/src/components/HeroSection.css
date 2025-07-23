@@ -1,0 +1,137 @@
+.hero-section {
+  position: relative;
+  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('../assets/hero-bg.jpg') center/cover no-repeat;
+  filter: blur(0.5px) brightness(0.7);
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(120deg, #007AFF 0%, #005bb5 100%);
+  opacity: 0.65;
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  color: #111;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4.5rem 1rem 2.5rem 1rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 2.5px solid #fff;
+  background: rgba(0, 122, 255, 0.18);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 2rem;
+  padding: 0.35rem 1.3rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.18rem;
+  box-shadow: 0 2px 8px rgba(0,122,255,0.08);
+  letter-spacing: 0.01em;
+}
+
+.hero-badge-icon {
+  font-size: 1.3rem;
+  color: #b3d7ff;
+}
+
+.hero-title {
+  font-size: 4.2rem;
+  font-weight: 800;
+  margin-bottom: 1.1rem;
+  letter-spacing: -1.5px;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(25,118,210,0.04);
+}
+
+.hero-subtitle {
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin-bottom: 2.3rem;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.hero-india {
+  color: #007AFF;
+  font-weight: 700;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.hero-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  color: #007AFF;
+  border: 2px solid #fff;
+  font-weight: 700;
+  font-size: 1.13rem;
+  padding: 0.7rem 2.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,122,255,0.08);
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.hero-btn-primary {
+  background: #fff;
+  color: #007AFF;
+  border: 2px solid #fff;
+}
+
+.hero-btn-primary:hover {
+  background: #e3f2fd;
+  color: #005bb5;
+  border: 2px solid #e3f2fd;
+}
+
+.hero-btn-secondary {
+  background: rgba(0, 122, 255, 0.18);
+  color: #fff;
+  border: 2.5px solid #fff;
+  font-weight: 700;
+  opacity: 1;
+}
+
+.hero-btn-secondary:hover {
+  background: rgba(0, 122, 255, 0.32);
+  color: #fff;
+  border: 2.5px solid #fff;
+}
+
+.hero-btn-arrow {
+  font-size: 1.2em;
+  margin-left: 0.2em;
+}
+
+.hero-btn-play {
+  font-size: 1.3em;
+  margin-right: 0.5em;
+  color: #7e8edb;
+} 

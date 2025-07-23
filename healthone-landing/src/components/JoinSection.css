@@ -1,0 +1,125 @@
+.join-section {
+  width: 100%;
+  background: linear-gradient(120deg, #007AFF 0%, #005bb5 100%);
+  color: #fff;
+  padding: 5.5rem 1.5rem 4.5rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.join-badge-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.2rem;
+}
+
+.join-badge {
+  background: #f9fbff;
+  color: #007AFF;
+  border: 2px solid #b3d7ff;
+  font-weight: 700;
+  font-size: 1.01rem;
+  border-radius: 1.5rem;
+  padding: 0.35rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,122,255,0.08);
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.join-badge:hover {
+  background: #e3f0fd;
+  color: #005bb5;
+  border: 2px solid #007AFF;
+}
+
+.join-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin-bottom: 1.1rem;
+  letter-spacing: -1.5px;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.join-title-accent {
+  color: #3ec6ff;
+  font-weight: 800;
+}
+
+.join-subtitle {
+  color: #e3f0fd;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 2.7rem;
+  line-height: 1.5;
+}
+
+.join-buttons-row {
+  display: flex;
+  gap: 2.2rem;
+  justify-content: center;
+  margin-top: 1.2rem;
+}
+
+.join-btn {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1.18rem;
+  border-radius: 14px;
+  padding: 0.9rem 2.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px 0 rgba(0,122,255,0.13);
+  outline: none;
+  border: 2.5px solid #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.join-btn-primary {
+  background: #fff;
+  color: #007AFF;
+  border: 2.5px solid #fff;
+}
+
+.join-btn-primary:hover {
+  background: #e3f0fd;
+  color: #005bb5;
+  border: 2.5px solid #e3f0fd;
+}
+
+.join-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2.5px solid #fff;
+}
+
+.join-btn-secondary:hover {
+  background: rgba(0, 122, 255, 0.18);
+  color: #fff;
+  border: 2.5px solid #b3d7ff;
+}
+
+.join-btn-arrow {
+  font-size: 1.2em;
+  margin-left: 0.2em;
+}
+
+.join-btn-icon {
+  font-size: 1.3em;
+  margin-right: 0.5em;
+}
+
+@media (max-width: 900px) {
+  .join-title {
+    font-size: 2.1rem;
+  }
+  .join-buttons-row {
+    flex-direction: column;
+    gap: 1.1rem;
+    align-items: center;
+  }
+} 

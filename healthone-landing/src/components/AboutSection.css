@@ -1,0 +1,152 @@
+.about-section {
+  font-family: 'Inter', sans-serif;
+  background: #f9fbff;
+  padding: 4rem 1.5rem 3rem 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.about-title {
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 0.7rem;
+  color: #222;
+}
+
+.about-title-accent {
+  color: #007AFF;
+}
+
+.about-subtitle {
+  text-align: center;
+  color: #7b8a99;
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.about-main-row {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.about-card {
+  background: #f4f8ff;
+  border-radius: 1.3rem;
+  box-shadow: 0 2px 12px 0 rgba(0,122,255,0.07);
+  padding: 2.1rem 2rem 1.7rem 2rem;
+  flex: 1;
+  min-width: 320px;
+  max-width: 540px;
+  border: 1.5px solid #e3f0fd;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.about-why {
+  background: linear-gradient(120deg, #007AFF 0%, #005bb5 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 24px 0 rgba(0,122,255,0.13);
+}
+
+.about-card-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-bottom: 1.1rem;
+  color: #222;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.about-why-title {
+  color: #fff;
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-bottom: 1.1rem;
+}
+
+.about-card-desc {
+  color: #607d8b;
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+
+.about-why-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-size: 1.08rem;
+}
+
+.about-why-list li {
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+.about-why-desc {
+  color: #b3d7ff;
+  font-size: 0.98rem;
+  font-weight: 400;
+}
+
+.about-values-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem 1.5rem;
+  margin-top: 0.7rem;
+  color: #222;
+  font-size: 1.08rem;
+  font-weight: 600;
+}
+
+.about-stats-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  justify-content: center;
+}
+
+.about-stat-card {
+  background: #fff;
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0,122,255,0.07);
+  padding: 1.5rem 2.2rem 1.2rem 2.2rem;
+  text-align: center;
+  border: 1.5px solid #e3f0fd;
+  min-width: 180px;
+}
+
+.about-stat-value {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #007AFF;
+  margin-bottom: 0.2rem;
+}
+
+.about-stat-accent {
+  color: #007AFF;
+}
+
+.about-stat-label {
+  color: #7b8a99;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .about-main-row, .about-stats-row {
+    flex-direction: column;
+    gap: 1.1rem;
+    align-items: stretch;
+  }
+  .about-card, .about-stat-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+} 
