@@ -22,10 +22,11 @@ import FamilyModeDashboard from './components/FamilyModeDashboard';
 import DoctorDashboard from './components/DoctorDashboard';
 import MedicineHubDashboard from './components/MedicineHubDashboard';
 import DiagnosticLabDashboard from './components/DiagnosticLabDashboard';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 
 function App() {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState('landing'); // 'landing', 'signin', or 'signup'
   const [loggedIn, setLoggedIn] = useState(() => !!localStorage.getItem('token'));
   const [showSymptomChecker, setShowSymptomChecker] = useState(false);
@@ -177,7 +178,7 @@ function App() {
   };
 
   const handleShowDigitalHealthRecords = () => {
-    window.location.href = '/health-records';
+    navigate('/health-records');
   };
 
   // Handler for navbar section navigation from feature routes
@@ -191,23 +192,24 @@ function App() {
 
   // Handler for navbar section navigation
   const handleNavigateSection = (sectionId) => {
-    setCurrentPage('landing');
-    setShowSymptomChecker(false);
-    setShowMentalHealthCompanion(false);
-    setShowVisualAIAnalyzer(false);
-    setShowFirstAidTrainer(false);
-    setShowCommunityHealthForum(false);
-    setShowChronicTracker(false);
-    setTimeout(() => {
-      if (sectionId === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (sectionId === 'home') {
+      navigate('/');
+    } else {
+      if (window.location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          const el = document.getElementById(sectionId);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 300);
       } else {
         const el = document.getElementById(sectionId);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth' });
         }
       }
-    }, 100); // Wait for landing page to render
+    }
   };
 
   if (currentPage === 'signin') {

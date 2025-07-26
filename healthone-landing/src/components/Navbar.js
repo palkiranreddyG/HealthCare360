@@ -1,7 +1,17 @@
 import React from 'react';
 import './Navbar.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const Navbar = ({ onLoginClick, onSignUpClick, dashboard, onGoBack, onProfileClick, onGoToDashboard, loggedIn, onLogout, onContactClick, contact, onNavigateSection }) => {
+const Navbar = (props) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    if (location.pathname === '/health-records') {
+      navigate('/');
+    } else if (props.onGoBack) {
+      props.onGoBack();
+    }
+  };
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -13,26 +23,26 @@ const Navbar = ({ onLoginClick, onSignUpClick, dashboard, onGoBack, onProfileCli
           <span className="navbar-logo-subtext navbar-logo-subtext-gray">AI-Powered Care</span>
         </div>
       </div>
-      {(!dashboard) && (
+      {(!props.dashboard) && (
         <ul className="navbar-links">
-          <li><button className="navbar-link-btn" onClick={() => onNavigateSection('home')}>Home</button></li>
-          <li><button className="navbar-link-btn" onClick={() => onNavigateSection('features')}>Features</button></li>
-          <li><button className="navbar-link-btn" onClick={() => onNavigateSection('about')}>About</button></li>
-          <li><button className="navbar-link-btn" onClick={() => onNavigateSection('contact')}>Contact</button></li>
+          <li><button className="navbar-link-btn" onClick={() => props.onNavigateSection('home')}>Home</button></li>
+          <li><button className="navbar-link-btn" onClick={() => props.onNavigateSection('features')}>Features</button></li>
+          <li><button className="navbar-link-btn" onClick={() => props.onNavigateSection('about')}>About</button></li>
+          <li><button className="navbar-link-btn" onClick={() => props.onNavigateSection('contact')}>Contact</button></li>
         </ul>
       )}
       <div className="navbar-actions">
-        {dashboard ? (
+        {props.dashboard ? (
           <>
-            <button className="navbar-goback" onClick={onGoBack}>Go Back</button>
-            <button className="navbar-logout" onClick={onLogout}>Logout</button>
+            <button className="navbar-goback" onClick={handleGoBack}>Go Back</button>
+            <button className="navbar-logout" onClick={props.onLogout}>Logout</button>
           </>
-        ) : loggedIn ? (
-          <button className="navbar-dashboard" onClick={onGoToDashboard}>Go to Dashboard</button>
+        ) : props.loggedIn ? (
+          <button className="navbar-dashboard" onClick={props.onGoToDashboard}>Go to Dashboard</button>
         ) : (
           <>
-            <button className="navbar-login" onClick={onLoginClick}>Login</button>
-            <button className="navbar-getstarted" onClick={onSignUpClick}>Get Started</button>
+            <button className="navbar-login" onClick={props.onLoginClick}>Login</button>
+            <button className="navbar-getstarted" onClick={props.onSignUpClick}>Get Started</button>
           </>
         )}
       </div>

@@ -215,6 +215,7 @@ const FeaturesSection = (props) => {
                       }),
                     });
                   }
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                   if (feature.title === 'Telemedicine Platform') {
                     navigate('/telemedicine');
                   } else if (feature.title === 'Smart Medicine Delivery') {
