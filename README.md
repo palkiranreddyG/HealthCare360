@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # HEALTHCARE360
 ##    Configuration
 
@@ -261,3 +262,6 @@ Stay updated with the latest features and improvements by:
 ---
 
 *HealthCare360°* - Empowering healthcare through AI technology.
+=======
+# HealthCare360
+>>>>>>> c8ae4f86f522bbc553a9b88ac97a9e441e51d5c4
