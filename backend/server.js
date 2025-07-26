@@ -14,7 +14,7 @@ app.use('/uploads', express.static(__dirname + '/public/uploads'));
 app.use('/uploads/health-records', cors(), express.static(__dirname + '/public/uploads/health-records'));
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/healthcare360';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://gkrsolutions77:visionary1@cluster0.kalz47a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
