@@ -28,7 +28,7 @@ const Dashboard = () => {
   const fetchDashboardData = () => {
     if (!userId) return;
     setLoading(true);
-    fetch(`/api/user-dashboard/${userId}`)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user-dashboard/${userId}`)
       .then(res => res.json())
       .then(data => { setDashboardData(data); setLoading(false); })
       .catch(e => { setError('Failed to load dashboard'); setLoading(false); });
