@@ -3,6 +3,7 @@ node_modules/
 
 # Ignore environment variable files
 .env
+backend/vision-key.json
 
 # Ignore build folders
 dist/
