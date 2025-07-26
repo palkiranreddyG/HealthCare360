@@ -233,7 +233,8 @@ export default function TelemedicinePlatform() {
     // POST appointment
     if (userId) {
       console.log('Booking appointment for:', selectedDoctor.name, 'at', date.toISOString());
-      await fetch(`/api/user-dashboard/${userId}/appointments`, {
+      const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
+      await fetch(`${BACKEND_URL}/api/user-dashboard/${userId}/appointments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -248,7 +249,8 @@ export default function TelemedicinePlatform() {
       const month = (date.getMonth() + 1).toString().padStart(2, '0');
       const year = date.getFullYear();
       const dateLabel = `${day}/${month}/${year}`;
-      await fetch(`/api/user-dashboard/${userId}/activities`, {
+      const BACKEND_URL_ACTIVITIES = 'https://healthcare360-backend.onrender.com';
+      await fetch(`${BACKEND_URL_ACTIVITIES}/api/user-dashboard/${userId}/activities`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

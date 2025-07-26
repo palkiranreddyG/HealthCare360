@@ -98,10 +98,12 @@ export default function SmartMedicineDelivery() {
   const [quantities, setQuantities] = useState({}); // { medicineName: quantity }
   const [ordersLoaded, setOrdersLoaded] = useState(false);
 
+  const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
+
   // Fetch orders from backend when My Orders is opened
   useEffect(() => {
     if (showOrders) {
-      fetch('/api/resources/orders')
+      fetch(`${BACKEND_URL}/api/resources/orders`)
         .then(res => res.json())
         .then(data => setOrders(data.orders || []));
       setOrdersLoaded(true);
@@ -137,7 +139,7 @@ export default function SmartMedicineDelivery() {
       user: 'demo', // Replace with real user if available
     };
     try {
-      await fetch('/api/resources/save-order', {
+      await fetch(`${BACKEND_URL}/api/resources/save-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(orderData),
@@ -147,7 +149,7 @@ export default function SmartMedicineDelivery() {
       setTimeout(() => setOrderSuccess(false), 2500);
       // Optionally refresh orders if My Orders is open
       if (showOrders) {
-        fetch('/api/resources/orders')
+        fetch(`${BACKEND_URL}/api/resources/orders`)
           .then(res => res.json())
           .then(data => setOrders(data.orders || []));
       }
@@ -167,7 +169,7 @@ export default function SmartMedicineDelivery() {
       const formData = new FormData();
       formData.append('file', prescription.file);
       // Optionally add patient/doctor info if needed
-      const res = await fetch('/api/resources/ocr-prescription', {
+      const res = await fetch(`${BACKEND_URL}/api/resources/ocr-prescription`, {
         method: 'POST',
         body: formData,
       });

@@ -78,6 +78,8 @@ const mockAppointments = [
   { id: 'a5', patient: 'Anil Kumar', reason: 'Fracture Review', time: '2024-06-13 02:00 PM' },
 ];
 
+const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
+
 const DoctorDashboard = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [chatInput, setChatInput] = useState('');
@@ -110,11 +112,11 @@ const DoctorDashboard = () => {
   useEffect(() => {
     if (!doctorId) return;
     // Fetch appointments
-    fetch(`/api/doctor/${doctorId}/appointments`)
+    fetch(`${BACKEND_URL}/api/doctor/${doctorId}/appointments`)
       .then(res => res.json())
       .then(data => { if (data.success) setAppointments(data.appointments); });
     // Fetch consult requests
-    fetch(`/api/doctor/${doctorId}/consult-requests`)
+    fetch(`${BACKEND_URL}/api/doctor/${doctorId}/consult-requests`)
       .then(res => res.json())
       .then(data => { if (data.success) setConsultRequests(data.requests); });
   }, [doctorId]);

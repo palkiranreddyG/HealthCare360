@@ -6,6 +6,8 @@ const MOCK_MESSAGES = [
   { sender: 'counselor', text: "I understand. Can you tell me more about what's been causing this anxiety?", time: '2:32 PM' },
 ];
 
+const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
+
 export default function CounselorChatSession({ counselor, onBack }) {
   const [messages, setMessages] = useState(MOCK_MESSAGES);
   const [input, setInput] = useState('');
@@ -27,7 +29,7 @@ export default function CounselorChatSession({ counselor, onBack }) {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('/api/gemini-chat', {
+      const res = await fetch(`${BACKEND_URL}/api/gemini-chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: input })

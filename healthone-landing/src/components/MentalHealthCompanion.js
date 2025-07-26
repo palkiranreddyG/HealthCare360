@@ -49,6 +49,8 @@ const mockResources = [
   { title: 'Stress Management', desc: 'Practical techniques for handling daily stress', tag: 'Coping', duration: '15 minutes' },
 ];
 
+const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
+
 function MoodBar({ value }) {
   return (
     <div style={{ background: LIGHT_BLUE, borderRadius: 8, height: 12, margin: '12px 0', width: '100%' }}>
@@ -92,7 +94,7 @@ const MentalHealthCompanion = () => {
   React.useEffect(() => {
     if (tab === 'Mood Tracker') {
       setMoodLoading(true);
-      fetch('/api/mood')
+      fetch(`${BACKEND_URL}/api/mood`)
         .then(res => res.json())
         .then(data => { setMoodEntries(data); setMoodLoading(false); })
         .catch(() => { setMoodError('Failed to load mood entries'); setMoodLoading(false); });
@@ -104,7 +106,7 @@ const MentalHealthCompanion = () => {
     if (tab === 'Resources') {
       setResourcesLoading(true);
       setResourcesError('');
-      fetch('/api/resources')
+      fetch(`${BACKEND_URL}/api/resources`)
         .then(res => res.json())
         .then(data => { setResources(data); setResourcesLoading(false); })
         .catch(() => { setResourcesError('Failed to load resources'); setResourcesLoading(false); });
@@ -112,7 +114,7 @@ const MentalHealthCompanion = () => {
     if (tab === 'Counselors') {
       setCounselorsLoading(true);
       setCounselorsError('');
-      fetch('/api/counselors')
+      fetch(`${BACKEND_URL}/api/counselors`)
         .then(res => res.json())
         .then(data => { setCounselors(data); setCounselorsLoading(false); })
         .catch(() => { setCounselorsError('Failed to load counselors'); setCounselorsLoading(false); });
@@ -126,10 +128,10 @@ const MentalHealthCompanion = () => {
         const userObj = JSON.parse(localStorage.getItem('user'));
         user = userObj?._id || userObj?.userId || null;
       } catch {}
-      fetch('/api/mood')
+      fetch(`${BACKEND_URL}/api/mood`)
         .then(res => res.json())
         .then(moodEntries => {
-          fetch('/api/insights', {
+          fetch(`${BACKEND_URL}/api/insights`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ moodEntries, chatHistory: chat, user }),
@@ -148,7 +150,7 @@ const MentalHealthCompanion = () => {
     setMoodLoading(true);
     setMoodError('');
     try {
-      const res = await fetch('/api/mood', {
+      const res = await fetch(`${BACKEND_URL}/api/mood`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mood: selectedMood.label, note: moodNote })
@@ -157,7 +159,7 @@ const MentalHealthCompanion = () => {
         setMoodNote('');
         setSelectedMood(null);
         // Refresh mood entries
-        const entries = await fetch('/api/mood').then(r => r.json());
+        const entries = await fetch(`${BACKEND_URL}/api/mood`).then(r => r.json());
         setMoodEntries(entries);
       } else {
         setMoodError('Failed to save mood entry');
@@ -207,7 +209,7 @@ const MentalHealthCompanion = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('/api/gemini-chat/chat', {
+      const res = await fetch(`${BACKEND_URL}/api/gemini-chat/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userInput })

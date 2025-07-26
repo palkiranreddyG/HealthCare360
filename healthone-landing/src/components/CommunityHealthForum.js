@@ -57,33 +57,34 @@ export default function CommunityHealthForum() {
   const [shareTooltip, setShareTooltip] = useState(null);
   const navigate = useNavigate();
   const [stats, setStats] = useState({ totalPosts: '-', activeToday: '-', expertAnswers: '-', helpfulRate: '-' });
+  const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
 
   // Fetch posts
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetch(`/api/forum/posts${category && category !== 'All Categories' ? `?category=${encodeURIComponent(category)}` : ''}`)
+    fetch(`${BACKEND_URL}/api/forum/posts${category && category !== 'All Categories' ? `?category=${encodeURIComponent(category)}` : ''}`)
       .then(res => res.json())
       .then(data => { setPosts(data); setLoading(false); })
       .catch(e => { setError('Failed to load posts'); setLoading(false); });
   }, [category]);
 
   useEffect(() => {
-    fetch('/api/forum/top-contributors')
+    fetch(`${BACKEND_URL}/api/forum/top-contributors`)
       .then(res => res.json())
       .then(setContributors)
       .catch(() => setContributors([]));
   }, []);
 
   useEffect(() => {
-    fetch('/api/forum/trending-topics')
+    fetch(`${BACKEND_URL}/api/forum/trending-topics`)
       .then(res => res.json())
       .then(setTrending)
       .catch(() => setTrending([]));
   }, []);
 
   useEffect(() => {
-    fetch('/api/forum/stats')
+    fetch(`${BACKEND_URL}/api/forum/stats`)
       .then(res => res.json())
       .then(data => setStats({
         totalPosts: data.totalPosts ?? '-',
@@ -116,7 +117,7 @@ export default function CommunityHealthForum() {
   // Open post modal
   const openPostModal = (post) => {
     setModalPost({ ...post, comments: null, loading: true, error: null });
-    fetch(`/api/forum/posts/${post._id}`)
+    fetch(`${BACKEND_URL}/api/forum/posts/${post._id}`)
       .then(res => res.json())
       .then(data => setModalPost({ ...data, loading: false, error: null }))
       .catch(e => setModalPost({ ...post, loading: false, error: 'Failed to load post' }));
@@ -126,7 +127,7 @@ export default function CommunityHealthForum() {
   const handleCreatePost = (e) => {
     e.preventDefault();
     setCreating(true);
-    fetch('/api/forum/posts', {
+    fetch(`${BACKEND_URL}/api/forum/posts`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...newPost, user: user._id })
@@ -146,7 +147,7 @@ export default function CommunityHealthForum() {
     e.preventDefault();
     if (!modalPost || !commentText.trim()) return;
     setCommentLoading(true);
-    fetch(`/api/forum/posts/${modalPost._id}/comments`, {
+    fetch(`${BACKEND_URL}/api/forum/posts/${modalPost._id}/comments`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ content: commentText, user: user._id })
@@ -162,7 +163,7 @@ export default function CommunityHealthForum() {
 
   // Like/unlike post
   const handleLikePost = (postId) => {
-    fetch(`/api/forum/posts/${postId}/like`, {
+    fetch(`${BACKEND_URL}/api/forum/posts/${postId}/like`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user: user._id })
@@ -178,7 +179,7 @@ export default function CommunityHealthForum() {
 
   // Like/unlike comment
   const handleLikeComment = (commentId) => {
-    fetch(`/api/forum/comments/${commentId}/like`, {
+    fetch(`${BACKEND_URL}/api/forum/comments/${commentId}/like`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user: user._id })

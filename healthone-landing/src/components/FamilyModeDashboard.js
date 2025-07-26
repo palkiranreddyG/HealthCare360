@@ -9,6 +9,8 @@ const mockRecords = [
   { date: '2023-12-10', type: 'Prescription', doctor: 'Dr. Mehta', hospital: 'Apollo', notes: 'Prescribed Metformin.' },
 ];
 
+const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
+
 const FamilyModeDashboard = () => {
   const [family, setFamily] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -34,7 +36,7 @@ const FamilyModeDashboard = () => {
   useEffect(() => {
     if (!userId) return;
     setLoading(true);
-    fetch(`/api/family/${userId}`)
+    fetch(`${BACKEND_URL}/api/family/${userId}`)
       .then(res => res.json())
       .then(data => {
         if (data && !data.error) {
@@ -43,7 +45,7 @@ const FamilyModeDashboard = () => {
         } else {
           // No family found, create one
           const newFamilyId = 'FAM-' + userId;
-          fetch('/api/family', {
+          fetch(`${BACKEND_URL}/api/family`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId, familyId: newFamilyId })
@@ -61,7 +63,7 @@ const FamilyModeDashboard = () => {
     if (!family) return;
     const member = { ...newMember, age: Number(newMember.age), prescriptions: Number(newMember.prescriptions), child: newMember.relation.toLowerCase().includes('son') || newMember.relation.toLowerCase().includes('daughter') };
     setLoading(true);
-    const res = await fetch(`/api/family/${family.familyId}/member`, {
+    const res = await fetch(`${BACKEND_URL}/api/family/${family.familyId}/member`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(member)
@@ -78,9 +80,9 @@ const FamilyModeDashboard = () => {
     if (!family) return;
     const memberId = family.members[idx]._id;
     setLoading(true);
-    await fetch(`/api/family/${family.familyId}/member/${memberId}`, { method: 'DELETE' });
+    await fetch(`${BACKEND_URL}/api/family/${family.familyId}/member/${memberId}`, { method: 'DELETE' });
     // Refetch family
-    const res = await fetch(`/api/family/${userId}`);
+    const res = await fetch(`${BACKEND_URL}/api/family/${userId}`);
     const data = await res.json();
     setFamily(data);
     setDeleteMemberIdx(null);
@@ -92,13 +94,13 @@ const FamilyModeDashboard = () => {
     if (!family) return;
     const memberId = family.members[editMember.idx]._id;
     setLoading(true);
-    await fetch(`/api/family/${family.familyId}/member/${memberId}`, {
+    await fetch(`${BACKEND_URL}/api/family/${family.familyId}/member/${memberId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...editMember.data, age: Number(editMember.data.age), prescriptions: Number(editMember.data.prescriptions), child: editMember.data.relation.toLowerCase().includes('son') || editMember.data.relation.toLowerCase().includes('daughter') })
     });
     // Refetch family
-    const res = await fetch(`/api/family/${userId}`);
+    const res = await fetch(`${BACKEND_URL}/api/family/${userId}`);
     const data = await res.json();
     setFamily(data);
     setShowEdit(false);

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './ChronicDiseaseTracker.css';
 
 const tabs = ['Overview', 'Medications', 'Log Readings', 'History'];
+const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
 
 export default function ChronicDiseaseTracker({ onClose }) {
   const [activeTab, setActiveTab] = useState('Overview');
@@ -59,13 +60,13 @@ export default function ChronicDiseaseTracker({ onClose }) {
   useEffect(() => {
     if (!userId) return;
     if (activeTab === 'Overview' || activeTab === 'Log Readings') {
-      fetch(`/api/chronic/readings?user=${userId}`)
+      fetch(`${BACKEND_URL}/api/chronic/readings?user=${userId}`)
         .then(res => res.json())
         .then(readings => {
           // Metrics: latest reading
           const latest = readings[0] || {};
           // Fetch medications for health score
-          fetch(`/api/chronic/medications?user=${userId}`)
+          fetch(`${BACKEND_URL}/api/chronic/medications?user=${userId}`)
             .then(res => res.json())
             .then(meds => {
               let score = 10;
@@ -109,7 +110,7 @@ export default function ChronicDiseaseTracker({ onClose }) {
         });
     }
     if (activeTab === 'Medications' || activeTab === 'Overview') {
-      fetch(`/api/chronic/medications?user=${userId}`)
+      fetch(`${BACKEND_URL}/api/chronic/medications?user=${userId}`)
         .then(res => res.json())
         .then(meds => {
           setMedications(meds);
@@ -117,7 +118,7 @@ export default function ChronicDiseaseTracker({ onClose }) {
         });
     }
     if (activeTab === 'History' || activeTab === 'Overview') {
-      fetch(`/api/chronic/history?user=${userId}`)
+      fetch(`${BACKEND_URL}/api/chronic/history?user=${userId}`)
         .then(res => res.json())
         .then(history => setHistoryReadings(history));
     }
@@ -126,7 +127,7 @@ export default function ChronicDiseaseTracker({ onClose }) {
       setAlertsLoading(true);
       setInsightsError('');
       setAlertsError('');
-      fetch('/api/chronic/ai-insights', {
+      fetch(`${BACKEND_URL}/api/chronic/ai-insights`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user: userId })
@@ -261,7 +262,7 @@ export default function ChronicDiseaseTracker({ onClose }) {
                   e.preventDefault();
                   if (!addMed.name || !addMed.dosage || !addMed.frequency) return alert('Fill all required fields');
                   setLoading(true);
-                  await fetch('/api/chronic/medications', {
+                  await fetch(`${BACKEND_URL}/api/chronic/medications`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ ...addMed, user: userId })
@@ -270,18 +271,18 @@ export default function ChronicDiseaseTracker({ onClose }) {
                   setAddMedOpen(false);
                   setLoading(false);
                   // Refresh meds
-                  fetch(`/api/chronic/medications?user=${userId}`)
+                  fetch(`${BACKEND_URL}/api/chronic/medications?user=${userId}`)
                     .then(res => res.json())
                     .then(setMedications);
                   // Refresh AI insights and alerts
-                  fetch(`/api/chronic/history?user=${userId}`)
+                  fetch(`${BACKEND_URL}/api/chronic/history?user=${userId}`)
                     .then(res => res.json())
                     .then(history => {
                       setInsightsLoading(true);
                       setAlertsLoading(true);
                       setInsightsError('');
                       setAlertsError('');
-                      fetch('/api/chronic/ai-insights', {
+                      fetch(`${BACKEND_URL}/api/chronic/ai-insights`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ user: userId })
@@ -330,21 +331,21 @@ export default function ChronicDiseaseTracker({ onClose }) {
                     ) : (
                       <button className="cdt-medication-mark-btn" onClick={async () => {
                         setLoading(true);
-                        await fetch(`/api/chronic/medications/${med._id}`, { method: 'PUT' });
+                        await fetch(`${BACKEND_URL}/api/chronic/medications/${med._id}`, { method: 'PUT' });
                         setLoading(false);
                         // Refresh meds
-                        fetch(`/api/chronic/medications?user=${userId}`)
+                        fetch(`${BACKEND_URL}/api/chronic/medications?user=${userId}`)
                           .then(res => res.json())
                           .then(setMedications);
                         // Refresh AI insights and alerts
-                        fetch(`/api/chronic/history?user=${userId}`)
+                        fetch(`${BACKEND_URL}/api/chronic/history?user=${userId}`)
                           .then(res => res.json())
                           .then(history => {
                             setInsightsLoading(true);
                             setAlertsLoading(true);
                             setInsightsError('');
                             setAlertsError('');
-                            fetch('/api/chronic/ai-insights', {
+                            fetch(`${BACKEND_URL}/api/chronic/ai-insights`, {
                               method: 'POST',
                               headers: { 'Content-Type': 'application/json' },
                               body: JSON.stringify({ user: userId })
@@ -402,7 +403,7 @@ export default function ChronicDiseaseTracker({ onClose }) {
                 <button className="cdt-logreadings-save-btn" onClick={async () => {
                   if (!logGlucose && !logBP && !logWeight) return alert('Enter at least one value');
                   setLoading(true);
-                  await fetch('/api/chronic/readings', {
+                  await fetch(`${BACKEND_URL}/api/chronic/readings`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ user: userId, glucose: logGlucose, bp: logBP, weight: logWeight })
@@ -412,7 +413,7 @@ export default function ChronicDiseaseTracker({ onClose }) {
                   setLogWeight('');
                   setLoading(false);
                   // Refresh readings, metrics, summary, history
-                  fetch(`/api/chronic/readings?user=${userId}`)
+                  fetch(`${BACKEND_URL}/api/chronic/readings?user=${userId}`)
                     .then(res => res.json())
                     .then(readings => {
                       const latest = readings[0] || {};
@@ -441,7 +442,7 @@ export default function ChronicDiseaseTracker({ onClose }) {
                       // Summary
                       setSummary(s => ({ ...s, readingsLogged: readings.length + '/7', healthScore: score.toFixed(1) + '/10' }));
                     });
-                  fetch(`/api/chronic/history?user=${userId}`)
+                  fetch(`${BACKEND_URL}/api/chronic/history?user=${userId}`)
                     .then(res => res.json())
                     .then(history => {
                       setHistoryReadings(history);
@@ -450,7 +451,7 @@ export default function ChronicDiseaseTracker({ onClose }) {
                       setAlertsLoading(true);
                       setInsightsError('');
                       setAlertsError('');
-                      fetch('/api/chronic/ai-insights', {
+                      fetch(`${BACKEND_URL}/api/chronic/ai-insights`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ user: userId })

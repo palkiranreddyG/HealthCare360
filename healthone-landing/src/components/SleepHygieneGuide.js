@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const BLUE = '#2196f3';
 const GRADIENT = 'linear-gradient(90deg, #2196f3 0%, #21cbf3 100%)';
 const LIGHT_BLUE = '#e3f0fd';
+const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
 
 const guide = [
   {
@@ -60,7 +61,7 @@ export default function SleepHygieneGuide({ onBack }) {
         const userObj = JSON.parse(localStorage.getItem('user'));
         user = userObj?._id || userObj?.userId || null;
       } catch {}
-      await fetch('/api/sleep-assessment', {
+      await fetch(`${BACKEND_URL}/api/sleep-assessment`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ rating, user }),

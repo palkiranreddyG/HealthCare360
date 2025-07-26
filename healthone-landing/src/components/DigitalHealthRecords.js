@@ -16,6 +16,8 @@ const STATUS_OPTIONS = [
   'Pending',
 ];
 
+const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
+
 const DigitalHealthRecords = () => {
   const [tab, setTab] = useState('Medical Records');
   const [records, setRecords] = useState([]);
@@ -59,7 +61,7 @@ const DigitalHealthRecords = () => {
     if (!user || !user._id) return;
     setLoading(true);
     setError('');
-    fetch(`/api/health-records/records?user=${user._id}`)
+    fetch(`${BACKEND_URL}/api/health-records/records?user=${user._id}`)
       .then(res => res.json())
       .then(data => { setRecords(data); setLoading(false); })
       .catch(() => { setError('Failed to load records'); setLoading(false); });
@@ -68,7 +70,7 @@ const DigitalHealthRecords = () => {
   // Fetch summary
   useEffect(() => {
     if (!user || !user._id) return;
-    fetch(`/api/health-records/summary?user=${user._id}`)
+    fetch(`${BACKEND_URL}/api/health-records/summary?user=${user._id}`)
       .then(res => res.json())
       .then(setSummary)
       .catch(() => {});
@@ -77,7 +79,7 @@ const DigitalHealthRecords = () => {
   // Fetch timeline
   useEffect(() => {
     if (!user || !user._id) return;
-    fetch(`/api/health-records/timeline?user=${user._id}`)
+    fetch(`${BACKEND_URL}/api/health-records/timeline?user=${user._id}`)
       .then(res => res.json())
       .then(setTimeline)
       .catch(() => {});
@@ -86,7 +88,7 @@ const DigitalHealthRecords = () => {
   // Fetch sharing
   useEffect(() => {
     if (!user || !user._id) return;
-    fetch(`/api/health-records/sharing?user=${user._id}`)
+    fetch(`${BACKEND_URL}/api/health-records/sharing?user=${user._id}`)
       .then(res => res.json())
       .then(data => setSharing(data.providers || []))
       .catch(() => {});
@@ -109,7 +111,7 @@ const DigitalHealthRecords = () => {
     fd.append('hospital', form.hospital);
     fd.append('status', form.status);
     if (form.file) fd.append('file', form.file);
-    await fetch('/api/health-records/records', {
+    await fetch(`${BACKEND_URL}/api/health-records/records`, {
       method: 'POST',
       body: fd,
     });
@@ -117,7 +119,7 @@ const DigitalHealthRecords = () => {
     setForm({ type: '', date: '', doctor: '', hospital: '', status: '', file: null });
     setUploading(false);
     // Refresh
-    fetch(`/api/health-records/records?user=${user._id}`)
+    fetch(`${BACKEND_URL}/api/health-records/records?user=${user._id}`)
       .then(res => res.json())
       .then(data => { setRecords(data); setLoading(false); });
   };
@@ -125,7 +127,7 @@ const DigitalHealthRecords = () => {
   // Add allergy/chronic
   const handleAddSummary = async (type) => {
     setAddingSummary(true);
-    await fetch('/api/health-records/summary', {
+    await fetch(`${BACKEND_URL}/api/health-records/summary`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user: user._id, type, value: summaryInput })
@@ -134,15 +136,15 @@ const DigitalHealthRecords = () => {
     setSummaryInput('');
     setAddingSummary(false);
     // Refresh summary
-    fetch(`/api/health-records/summary?user=${user._id}`)
+    fetch(`${BACKEND_URL}/api/health-records/summary?user=${user._id}`)
       .then(res => res.json())
       .then(setSummary);
   };
 
   // Revoke access
   const handleRevokeAccess = async (id) => {
-    await fetch(`/api/health-records/sharing/${id}`, { method: 'DELETE' });
-    fetch(`/api/health-records/sharing?user=${user._id}`)
+    await fetch(`${BACKEND_URL}/api/health-records/sharing/${id}`, { method: 'DELETE' });
+    fetch(`${BACKEND_URL}/api/health-records/sharing?user=${user._id}`)
       .then(res => res.json())
       .then(data => setSharing(data.providers || []));
   };
@@ -154,7 +156,7 @@ const DigitalHealthRecords = () => {
   const handleAddProvider = async e => {
     e.preventDefault();
     setAddingProvider(true);
-    await fetch('/api/health-records/sharing', {
+    await fetch(`${BACKEND_URL}/api/health-records/sharing`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user: user._id, name: providerForm.name, meta: providerForm.meta })
@@ -163,7 +165,7 @@ const DigitalHealthRecords = () => {
     setProviderForm({ name: '', meta: '' });
     setAddingProvider(false);
     // Refresh
-    fetch(`/api/health-records/sharing?user=${user._id}`)
+    fetch(`${BACKEND_URL}/api/health-records/sharing?user=${user._id}`)
       .then(res => res.json())
       .then(data => setSharing(data.providers || []));
   };

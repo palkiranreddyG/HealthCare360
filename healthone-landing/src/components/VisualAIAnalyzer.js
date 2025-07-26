@@ -7,6 +7,8 @@ export default function VisualAIAnalyzer() {
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef();
 
+  const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
+
   // Demo result for UI
   const demoResult = {
     woundType: 'Minor Cut',
@@ -58,7 +60,7 @@ export default function VisualAIAnalyzer() {
         }
         const formData = new FormData();
         formData.append('image', fileInput.files[0]);
-        const uploadRes = await fetch('/api/visualai/upload', {
+        const uploadRes = await fetch(`${BACKEND_URL}/api/visualai/upload`, {
           method: 'POST',
           body: formData
         });
@@ -66,7 +68,7 @@ export default function VisualAIAnalyzer() {
         if (!uploadData.url) throw new Error('Image upload failed');
         imageUrl = uploadData.url;
       }
-      const response = await fetch('/api/visualai/analyze', {
+      const response = await fetch(`${BACKEND_URL}/api/visualai/analyze`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ imageUrl })

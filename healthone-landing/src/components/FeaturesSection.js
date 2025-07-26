@@ -3,6 +3,8 @@ import './FeaturesSection.css';
 import ChronicDiseaseTracker from './ChronicDiseaseTracker';
 import { useNavigate } from 'react-router-dom';
 
+const BACKEND_URL = 'https://healthcare360-backend.onrender.com';
+
 const features = [
   {
     title: 'AI Symptom Checker',
@@ -203,7 +205,7 @@ const FeaturesSection = (props) => {
                     userId = user?._id || user?.userId || null;
                   } catch (e) {}
                   if (userId) {
-                    await fetch(`/api/user-dashboard/${userId}/activities`, {
+                    await fetch(`${BACKEND_URL}/api/user-dashboard/${userId}/activities`, {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({
