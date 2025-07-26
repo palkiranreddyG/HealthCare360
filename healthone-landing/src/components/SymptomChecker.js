@@ -9,8 +9,10 @@ const SymptomChecker = () => {
   const [error, setError] = useState('');
   const [quickSymptoms, setQuickSymptoms] = useState([]);
 
+  const BACKEND_URL = 'https://healthcare360-backend.onrender.com'; // ✅ backend URL
+
   React.useEffect(() => {
-    fetch('/api/quick-symptoms')
+    fetch(`${BACKEND_URL}/api/quick-symptoms`)
       .then(res => res.json())
       .then(setQuickSymptoms)
       .catch(() => setQuickSymptoms([]));
@@ -26,7 +28,7 @@ const SymptomChecker = () => {
     setError('');
     setAiResult('');
     try {
-      const res = await fetch('/api/analyze-symptoms', {
+      const res = await fetch(`${BACKEND_URL}/api/analyze-symptoms`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ symptoms, duration, severity }),
@@ -40,22 +42,15 @@ const SymptomChecker = () => {
     setLoading(false);
   };
 
-  // Helper function to format AI result string into HTML for better readability
   function formatAiResult(result) {
     if (!result) return '';
     let html = result;
-    // Bold 'Analysis:' and 'Recommendations:' at the start of lines
     html = html.replace(/(^|\n)(Analysis:)/g, '$1<strong>Analysis:</strong>');
     html = html.replace(/(^|\n)(Recommendations:)/g, '$1<strong>Recommendations:</strong>');
-    // Add paragraph breaks between sections
     html = html.replace(/\n\n/g, '<br/><br/>');
-    // If recommendations are a list, convert to bullet points
-    // Try to find lines starting with '- ' or '* '
     html = html.replace(/\n[-*] /g, '<ul><li>');
     html = html.replace(/\n/g, '<br/>');
-    // Close list tags if any
     if (html.includes('<ul><li>')) html += '</li></ul>';
-    // Add spacing after bolded headings
     html = html.replace(/(<strong>[^<]+<\/strong>)/g, '$1 ');
     return html;
   }
@@ -132,4 +127,4 @@ const SymptomChecker = () => {
   );
 };
 
-export default SymptomChecker; 
+export default SymptomChecker;
