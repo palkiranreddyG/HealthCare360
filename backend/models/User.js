@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Full name is required'],
     trim: true
   },
+  badge: {
+    type: String,
+    default: 'Member'
+  },
   email: {
     type: String,
     required: [true, 'Email is required'],
@@ -24,6 +28,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Password is required'],
     minlength: [6, 'Password must be at least 6 characters long']
+  },
+  role: {
+    type: String,
+    enum: ['user', 'doctor', 'medicine_hub', 'diagnostic_center'],
+    default: 'user',
   },
   createdAt: {
     type: Date,

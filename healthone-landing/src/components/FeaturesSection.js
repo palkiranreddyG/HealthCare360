@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './FeaturesSection.css';
+import ChronicDiseaseTracker from './ChronicDiseaseTracker';
+import { useNavigate } from 'react-router-dom';
 
 const features = [
   {
@@ -20,21 +22,22 @@ const features = [
     button: 'Explore Feature',
   },
   {
-    title: 'Visual AI Analyzer',
+    title: 'Family Mode',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 12m-3.2 0a3.2 3.2 0 1 1 6.4 0a3.2 3.2 0 1 1 -6.4 0" stroke="currentColor" strokeWidth="2" fill="none"/>
-        <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" fill="currentColor"/>
+        <circle cx="8" cy="10" r="3" fill="#1976d2"/>
+        <circle cx="16" cy="10" r="3" fill="#21c6fb"/>
+        <rect x="4" y="15" width="16" height="5" rx="2.5" fill="#e3f0fd"/>
       </svg>
     ),
-    description: 'Revolutionary computer vision for wound detection and injury assessment',
+    description: 'Manage your family’s health in one place. Add family members, track their records, and get personalized care suggestions.',
     points: [
-      'AI-powered wound severity detection',
-      'Instant treatment suggestions',
-      'AR guided self-treatment',
-      'Progress tracking',
+      'Add and manage family profiles',
+      'Centralized health records',
+      'Family vaccination & checkup reminders',
+      'Personalized family wellness tips',
     ],
-    badges: ['5s Response'],
+    badges: ['New!'],
     button: 'Explore Feature',
   },
   {
@@ -158,50 +161,87 @@ const features = [
   },
 ];
 
-const FeaturesSection = ({ onExploreFeature, onExploreMentalHealthCompanion }) => (
-  <section className="features-section" id="features">
-    <h2 className="features-title">Complete Healthcare <span className="features-title-accent">Ecosystem</span></h2>
-    <p className="features-subtitle">
-      Nine integrated AI-powered modules designed to revolutionize healthcare delivery across India, with special focus on rural and underserved communities.
-    </p>
-    <div className="features-cards">
-      {features.map((feature, idx) => (
-        <div className="feature-card" key={idx}>
-          <div className="feature-icon">{feature.icon}</div>
-          <h3 className="feature-title">{feature.title}</h3>
-          <p className="feature-description">{feature.description}</p>
-          {feature.badges && feature.badges.length > 0 && (
-            <div className="feature-badges">
-              {feature.badges.map((badge, index) => (
-                <span key={index} className="feature-badge-pill">{badge}</span>
+const FeaturesSection = (props) => {
+  const navigate = useNavigate();
+  return (
+    <section className="features-section" id="features">
+      <h2 className="features-title">Complete Healthcare <span className="features-title-accent">Ecosystem</span></h2>
+      <p className="features-subtitle">
+        Nine integrated AI-powered modules designed to revolutionize healthcare delivery across India, with special focus on rural and underserved communities.
+      </p>
+      <div className="features-cards">
+        {features.map((feature, idx) => (
+          <div className="feature-card" key={idx}>
+            <div className="feature-icon">{feature.icon}</div>
+            <h3 className="feature-title">{feature.title}</h3>
+            <p className="feature-description">{feature.description}</p>
+            {feature.badges && feature.badges.length > 0 && (
+              <div className="feature-badges">
+                {feature.badges.map((badge, index) => (
+                  <span key={index} className="feature-badge-pill">{badge}</span>
+                ))}
+              </div>
+            )}
+            <ul className="feature-points">
+              {feature.points.map((point, i) => (
+                <li key={i}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{marginRight: '8px', flexShrink: 0}}>
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#007AFF"/>
+                  </svg>
+                  {point}
+                </li>
               ))}
-            </div>
-          )}
-          <ul className="feature-points">
-            {feature.points.map((point, i) => (
-              <li key={i}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{marginRight: '8px', flexShrink: 0}}>
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#007AFF"/>
-                </svg>
-                {point}
-              </li>
-            ))}
-          </ul>
-          {feature.button && (
-            <button
-              className="feature-btn"
-              onClick={
-                idx === 0 && onExploreFeature ? onExploreFeature :
-                (feature.title === 'Mental Health Companion' && onExploreMentalHealthCompanion ? onExploreMentalHealthCompanion : undefined)
-              }
-            >
-              {feature.button}
-            </button>
-          )}
-        </div>
-      ))}
-    </div>
-  </section>
-);
+            </ul>
+            {feature.button && (
+              <button
+                className="feature-btn"
+                onClick={async () => {
+                  // Log activity for feature visit
+                  let userId = null;
+                  try {
+                    const user = JSON.parse(localStorage.getItem('user'));
+                    userId = user?._id || user?.userId || null;
+                  } catch (e) {}
+                  if (userId) {
+                    await fetch(`/api/user-dashboard/${userId}/activities`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        type: 'feature',
+                        description: `Visited feature: ${feature.title}`,
+                        time: new Date(),
+                      }),
+                    });
+                  }
+                  if (feature.title === 'Telemedicine Platform') {
+                    navigate('/telemedicine');
+                  } else if (feature.title === 'Smart Medicine Delivery') {
+                    navigate('/medicine-delivery');
+                  } else if (feature.title === 'Chronic Disease Tracker') {
+                    props.onShowChronicTracker && props.onShowChronicTracker();
+                  } else if (feature.title === 'Digital Health Records' && props.onShowDigitalHealthRecords) {
+                    props.onShowDigitalHealthRecords();
+                  } else if (idx === 0 && props.onExploreFeature) {
+                    props.onExploreFeature();
+                  } else if (feature.title === 'Family Mode' && props.onExploreFamilyMode) {
+                    props.onExploreFamilyMode();
+                  } else if (feature.title === 'Mental Health Companion' && props.onExploreMentalHealthCompanion) {
+                    props.onExploreMentalHealthCompanion();
+                  } else if (feature.title === 'First-Aid Trainer' && props.onExploreFirstAidTrainer) {
+                    props.onExploreFirstAidTrainer();
+                  } else if (feature.title === 'Community Health Forum' && props.onExploreCommunityHealthForum) {
+                    props.onExploreCommunityHealthForum();
+                  }
+                }}
+              >
+                {feature.button}
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
 
 export default FeaturesSection; 

@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'healthcare360-secret-key';
 // Register User
 router.post('/register', async (req, res) => {
   try {
-    const { fullName, email, phone, password } = req.body;
+    const { fullName, email, phone, password, role } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -26,14 +26,15 @@ router.post('/register', async (req, res) => {
       fullName,
       email,
       phone,
-      password
+      password,
+      role: role || 'user',
     });
 
     await user.save();
 
     // Generate JWT token
     const token = jwt.sign(
-      { userId: user._id, email: user.email },
+      { userId: user._id, email: user.email, role: user.role },
       JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -60,7 +61,7 @@ router.post('/register', async (req, res) => {
 // Login User
 router.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
 
     // Find user by email
     const user = await User.findOne({ email });
@@ -80,13 +81,21 @@ router.post('/login', async (req, res) => {
       });
     }
 
+    // Check role match if provided
+    if (role && user.role !== role) {
+      return res.status(401).json({
+        success: false,
+        message: 'Role mismatch. Please select the correct account type.'
+      });
+    }
+
     // Update last login
     user.lastLogin = new Date();
     await user.save();
 
     // Generate JWT token
     const token = jwt.sign(
-      { userId: user._id, email: user.email },
+      { userId: user._id, email: user.email, role: user.role },
       JWT_SECRET,
       { expiresIn: '7d' }
     );

@@ -6,6 +6,8 @@ const SignIn = ({ onSwitchToSignUp, onBackToLanding, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [accountType, setAccountType] = useState('user'); // 'user' or 'admin'
+  const [role, setRole] = useState('doctor');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +20,8 @@ const SignIn = ({ onSwitchToSignUp, onBackToLanding, onLoginSuccess }) => {
         },
         body: JSON.stringify({
           email,
-          password
+          password,
+          role: accountType === 'admin' ? role : 'user'
         })
       });
 
@@ -63,6 +66,26 @@ const SignIn = ({ onSwitchToSignUp, onBackToLanding, onLoginSuccess }) => {
 
         {/* Sign In Form */}
         <form className="signin-form" onSubmit={handleSubmit}>
+          {/* Account Type Selector */}
+          <div className="signin-field">
+            <label className="signin-label">Sign in as</label>
+            <select className="signin-input" value={accountType} onChange={e => setAccountType(e.target.value)} required>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          {/* Admin Type Dropdown (only if Admin) */}
+          {accountType === 'admin' && (
+            <div className="signin-field">
+              <label className="signin-label">Admin Type</label>
+              <select className="signin-input" value={role} onChange={e => setRole(e.target.value)} required>
+                <option value="doctor">Doctor</option>
+                <option value="medicine_hub">Medicine Delivery Hub</option>
+                <option value="diagnostic_center">Diagnostic Center</option>
+              </select>
+            </div>
+          )}
+
           {/* Email Field */}
           <div className="signin-field">
             <label className="signin-label">Email</label>

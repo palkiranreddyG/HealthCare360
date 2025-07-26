@@ -1,0 +1,426 @@
+.vai-bg {
+  min-height: 100vh;
+  background: #f5f8fd;
+  padding: 0;
+}
+.vai-container {
+  max-width: 1700px;
+  margin: 0 auto;
+  padding: 40px 32px 0 32px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.vai-back-btn {
+  background: none;
+  border: none;
+  color: #2196f3;
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 10px;
+}
+.vai-back-arrow {
+  font-size: 22px;
+  margin-right: 2px;
+}
+.vai-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 36px;
+}
+.vai-header-icon {
+  background: #2196f3;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 12px #e3eaf5;
+}
+.vai-header-icon svg {
+  width: 40px;
+  height: 40px;
+}
+.vai-title {
+  font-weight: 800;
+  font-size: 38px;
+  margin-bottom: 10px;
+  text-align: center;
+  letter-spacing: -1px;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+.vai-subtitle {
+  color: #8ca0b3;
+  font-size: 18px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 400;
+  max-width: 700px;
+  line-height: 1.3;
+}
+.vai-badges-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.vai-badge {
+  border-radius: 16px;
+  padding: 10px 28px;
+  font-weight: 700;
+  font-size: 16px;
+  display: inline-block;
+}
+.vai-badge-blue {
+  background: #e3f8ff;
+  color: #21a1f3;
+  box-shadow: 0 1px 4px #e3eaf5;
+}
+.vai-badge-plain {
+  background: none;
+  color: #222;
+  font-weight: 500;
+}
+.vai-cards-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  justify-content: center;
+  align-items: start;
+  margin: 0 auto 36px auto;
+  max-width: 1500px;
+}
+.vai-card {
+  background: #fff;
+  border-radius: 18px;
+  border: 1.5px solid #e3eaf5;
+  box-shadow: 0 4px 24px 0 #e3eaf5;
+  padding: 38px 48px 28px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 540px;
+  max-width: 700px;
+  word-break: break-word;
+}
+.vai-card-header {
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #222;
+}
+.vai-card-header svg {
+  width: 24px;
+  height: 24px;
+  stroke: #222;
+}
+.vai-card-desc {
+  color: #8ca0b3;
+  font-size: 15px;
+  margin-bottom: 18px;
+  text-align: center;
+  font-weight: 500;
+}
+.vai-upload-area {
+  width: 100%;
+  min-height: 90px;
+  border: 1.5px dashed #e3eaf5;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  cursor: pointer;
+  background: #fafbfc;
+  transition: border 0.2s;
+  padding: 18px 0 14px 0;
+  word-break: break-word;
+}
+.vai-upload-area svg {
+  width: 32px;
+  height: 32px;
+}
+.vai-upload-area-result {
+  cursor: default;
+}
+.vai-upload-img-preview {
+  width: 100%;
+  max-width: 100%;
+  max-height: 180px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 0;
+  box-shadow: 0 2px 8px #e3eaf5;
+}
+.vai-remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  background: #fff;
+  color: #222;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 4px 16px;
+  box-shadow: 0 2px 8px #e3eaf5;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.15s;
+}
+.vai-remove-btn:hover {
+  background: #f3f6fa;
+}
+.vai-analyze-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #2196f3 0%, #21cbf3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 16px 0;
+  margin-bottom: 18px;
+  margin-top: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 2px 12px #e3eaf5;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.vai-analyze-btn:disabled {
+  background: #e3eaf5;
+  color: #8ca0b3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.vai-analyze-icon {
+  font-size: 20px;
+  margin-right: 6px;
+}
+.vai-btn-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 0;
+  flex-wrap: wrap;
+}
+.vai-btn {
+  background: #fff;
+  color: #222;
+  border: 1.5px solid #dbeafe;
+  border-radius: 10px;
+  padding: 14px 0;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  flex: 1 1 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 200px;
+  min-width: 120px;
+  transition: background 0.15s, border 0.15s;
+  box-shadow: none;
+  margin-bottom: 0;
+}
+.vai-btn:active, .vai-btn:focus {
+  background: #e3f0fd;
+  border-color: #2196f3;
+}
+.vai-btn-gallery svg, .vai-btn-photo svg {
+  margin-right: 6px;
+  width: 18px;
+  height: 18px;
+}
+.vai-analysis-card {
+  position: relative;
+}
+.vai-analysis-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 12px;
+}
+.vai-analysis-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 12px;
+  gap: 18px;
+}
+.vai-analysis-label {
+  color: #8ca0b3;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.vai-analysis-type {
+  color: #111;
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 0;
+}
+.vai-confidence-label {
+  color: #8ca0b3;
+  font-size: 15px;
+  font-weight: 600;
+  margin-left: auto;
+  margin-bottom: 2px;
+}
+.vai-confidence-value {
+  color: #1976d2;
+  font-size: 28px;
+  font-weight: 800;
+  margin-left: auto;
+  margin-top: -8px;
+}
+.vai-badges-inline {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  margin-top: 2px;
+}
+.vai-badge-pill {
+  display: inline-block;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 6px 18px;
+  color: #fff;
+  background: #8ca0b3;
+  box-shadow: 0 1px 4px #e3eaf5;
+}
+.vai-badge-green {
+  background: #2ecc40;
+  color: #fff;
+}
+.vai-badge-blue {
+  background: #21cbf3;
+  color: #fff;
+}
+.vai-recommend-label {
+  color: #222;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  margin-top: 8px;
+}
+.vai-recommend-list {
+  color: #222;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 18px;
+  margin-top: 0;
+  padding-left: 20px;
+}
+.vai-action-btn {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 14px 0;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 12px #e3eaf5;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.vai-action-primary {
+  background: linear-gradient(90deg, #2196f3 0%, #21cbf3 100%);
+  color: #fff;
+}
+.vai-action-primary svg {
+  stroke: #fff;
+  width: 18px;
+  height: 18px;
+}
+.vai-action-secondary {
+  background: #f3f6fa;
+  color: #1976d2;
+  box-shadow: none;
+}
+.vai-action-secondary svg {
+  stroke: #1976d2;
+  width: 18px;
+  height: 18px;
+}
+.vai-safety-box {
+  background: #fff7f7;
+  border: 1.5px solid #ffd6d6;
+  border-radius: 14px;
+  padding: 24px 28px;
+  max-width: 800px;
+  margin: 0 auto 24px auto;
+  margin-top: 0;
+  box-shadow: 0 2px 8px #ffeaea;
+}
+.vai-safety-header {
+  color: #e53935;
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.vai-safety-header svg {
+  width: 18px;
+  height: 18px;
+}
+.vai-safety-list {
+  color: #e53935;
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 18px;
+  margin-bottom: 0;
+  line-height: 1.6;
+  padding-left: 0;
+}
+@media (max-width: 1400px) {
+  .vai-cards-row {
+    max-width: 1000px;
+    gap: 32px;
+  }
+  .vai-card {
+    min-width: 340px;
+    max-width: 100%;
+    padding: 32px 18px 20px 18px;
+  }
+}
+@media (max-width: 900px) {
+  .vai-cards-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 500px;
+  }
+  .vai-card {
+    min-width: 320px;
+    max-width: 100%;
+    height: auto;
+    padding: 24px 8px 14px 8px;
+  }
+}

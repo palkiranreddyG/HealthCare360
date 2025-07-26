@@ -1,1 +1,13 @@
-.env 
+# Ignore node_modules folder
+node_modules/
+
+# Ignore environment variable files
+.env
+
+# Ignore build folders
+dist/
+build/
+
+# Ignore OS or editor files
+.DS_Store
+.vscode/

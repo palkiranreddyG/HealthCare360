@@ -44,24 +44,6 @@ const AboutSection = (props) => (
         </div>
       </div>
     </div>
-    <div className="about-stats-row">
-      <div className="about-stat-card">
-        <div className="about-stat-value">50,000+</div>
-        <div className="about-stat-label">Lives Impacted</div>
-      </div>
-      <div className="about-stat-card">
-        <div className="about-stat-value">1,200+</div>
-        <div className="about-stat-label">Partner Hospitals</div>
-      </div>
-      <div className="about-stat-card">
-        <div className="about-stat-value about-stat-accent">15 States</div>
-        <div className="about-stat-label">Currently Active</div>
-      </div>
-      <div className="about-stat-card">
-        <div className="about-stat-value">2 Minutes</div>
-        <div className="about-stat-label">Avg Response Time</div>
-      </div>
-    </div>
   </section>
 );
 

@@ -1,0 +1,315 @@
+.family-root {
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+  padding: 0;
+}
+.family-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  margin-left: 0;
+}
+.family-dashboard {
+  max-width: 100vw;
+  margin: 0;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(33,198,251,0.13);
+  padding: 32px 48px 32px 48px;
+}
+.family-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+.family-dashboard-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.family-dashboard-desc {
+  color: #4a90e2;
+  font-size: 1.05rem;
+}
+.family-id-badge {
+  background: #e3f0fd;
+  color: #1976d2;
+  border-radius: 12px;
+  padding: 6px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.family-stats-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+.family-stat {
+  flex: 1;
+  background: #f8fbff;
+  border-radius: 14px;
+  padding: 18px 0 14px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+}
+.family-stat-blue { background: #f8fbff; }
+.family-stat-green { background: #e6f9f0; }
+.family-stat-purple { background: #f7f0fd; }
+.family-stat-orange { background: #fff6ed; }
+.family-stat-icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+.family-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1976d2;
+}
+.family-stat-label {
+  font-size: 1.05rem;
+  color: #4a90e2;
+}
+.family-add-btn {
+  width: 100%;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 18px 0 24px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.family-add-btn:hover {
+  background: #1565c0;
+}
+.family-members-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.family-member-card {
+  background: #f8fbff;
+  border-radius: 16px;
+  box-shadow: 0 1px 6px rgba(33,198,251,0.06);
+  padding: 24px 28px 18px 28px;
+  min-width: 320px;
+  max-width: 350px;
+  flex: 1 1 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.family-member-avatar {
+  width: 48px;
+  height: 48px;
+  background: #e3f0fd;
+  color: #1976d2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+.family-member-avatar.child {
+  background: #f7f0fd;
+  color: #a259e6;
+}
+.family-member-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.family-member-relation {
+  color: #4a90e2;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.family-member-info {
+  font-size: 0.98rem;
+  margin-bottom: 2px;
+  color: #222;
+}
+.family-member-conditions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.family-chip {
+  background: #e3f0fd;
+  color: #1976d2;
+  border-radius: 12px;
+  padding: 3px 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.family-child-badge {
+  background: #f7f0fd;
+  color: #a259e6;
+  border-radius: 10px;
+  padding: 3px 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.family-member-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+.family-view-btn {
+  background: #fff;
+  color: #1976d2;
+  border: 1.5px solid #1976d2;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.family-view-btn:hover {
+  background: #e3f0fd;
+}
+.family-appoint-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.family-appoint-btn:hover {
+  background: #1565c0;
+}
+.family-edit-btn {
+  background: #fff;
+  color: #1976d2;
+  border: 1.5px solid #1976d2;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+.family-edit-btn:hover {
+  background: #e3f0fd;
+}
+.family-delete-btn {
+  background: #fff;
+  color: #e53935;
+  border: 1.5px solid #e53935;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+.family-delete-btn:hover {
+  background: #ffeaea;
+  color: #b71c1c;
+  border-color: #b71c1c;
+}
+.family-modal-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30, 50, 80, 0.18);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.family-modal {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(33,198,251,0.13);
+  width: 600px;
+  max-width: 98vw;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 32px 0;
+}
+.family-modal-header {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 18px 32px 12px 32px;
+  border-bottom: 1px solid #e3eaf3;
+}
+.family-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px 32px 0 32px;
+}
+.family-modal-input {
+  border: 1.5px solid #e3eaf3;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1.05rem;
+  margin-bottom: 0;
+}
+.family-records-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 1.05rem;
+}
+.family-records-table th, .family-records-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e3eaf3;
+  text-align: left;
+  vertical-align: top;
+}
+.family-records-table th {
+  background: #f5fafd;
+  font-weight: 700;
+}
+.family-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 18px 32px 0 32px;
+}
+.family-modal-cancel, .family-modal-save {
+  background: #fff;
+  color: #1976d2;
+  border: 1.5px solid #1976d2;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.family-modal-save {
+  background: #1976d2;
+  color: #fff;
+}
+.family-modal-cancel:hover {
+  background: #e3f0fd;
+}
+.family-modal-save:hover {
+  background: #1565c0;
+} 

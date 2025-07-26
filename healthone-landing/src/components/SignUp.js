@@ -12,6 +12,10 @@ const SignUp = ({ onSwitchToSignIn, onBackToLanding, onLoginSuccess }) => {
     confirmPassword: ''
   });
   const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [accountType, setAccountType] = useState('user'); // 'user' or 'admin'
+  const [role, setRole] = useState('doctor');
+  const [validDoc, setValidDoc] = useState(null);
+  const [docError, setDocError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,12 +27,17 @@ const SignUp = ({ onSwitchToSignIn, onBackToLanding, onLoginSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setDocError('');
     if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
     if (!agreeToTerms) {
       alert('Please agree to the Terms of Service and Privacy Policy');
+      return;
+    }
+    if (accountType === 'admin' && !validDoc) {
+      setDocError('Please upload valid documents for admin signup.');
       return;
     }
     
@@ -42,7 +51,8 @@ const SignUp = ({ onSwitchToSignIn, onBackToLanding, onLoginSuccess }) => {
           fullName: formData.fullName,
           email: formData.email,
           phone: formData.phone,
-          password: formData.password
+          password: formData.password,
+          role: accountType === 'admin' ? role : 'user'
         })
       });
 
@@ -93,6 +103,26 @@ const SignUp = ({ onSwitchToSignIn, onBackToLanding, onLoginSuccess }) => {
 
         {/* Sign Up Form */}
         <form className="signup-form" onSubmit={handleSubmit}>
+          {/* Account Type Selector */}
+          <div className="signup-field">
+            <label className="signup-label">Register as</label>
+            <select className="signup-input" value={accountType} onChange={e => setAccountType(e.target.value)} required>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          {/* Admin Type Dropdown (only if Admin) */}
+          {accountType === 'admin' && (
+            <div className="signup-field">
+              <label className="signup-label">Admin Type</label>
+              <select className="signup-input" value={role} onChange={e => setRole(e.target.value)} required>
+                <option value="doctor">Doctor</option>
+                <option value="medicine_hub">Medicine Delivery Hub</option>
+                <option value="diagnostic_center">Diagnostic Center</option>
+              </select>
+            </div>
+          )}
+
           {/* Full Name Field */}
           <div className="signup-field">
             <label className="signup-label">Full Name</label>
@@ -213,6 +243,21 @@ const SignUp = ({ onSwitchToSignIn, onBackToLanding, onLoginSuccess }) => {
               </button>
             </div>
           </div>
+
+          {/* Valid Documents Field (only for admin) */}
+          {accountType === 'admin' && (
+            <div className="signup-field">
+              <label className="signup-label">Valid Documents</label>
+              <input
+                type="file"
+                accept="application/pdf,image/*"
+                onChange={e => setValidDoc(e.target.files[0])}
+                required={accountType === 'admin'}
+                className="signup-input"
+              />
+              {docError && <div style={{ color: 'red', fontSize: 13, marginTop: 4 }}>{docError}</div>}
+            </div>
+          )}
 
           {/* Terms and Privacy */}
           <div className="signup-terms">

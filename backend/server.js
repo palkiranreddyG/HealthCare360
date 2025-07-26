@@ -10,11 +10,13 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/uploads', express.static(__dirname + '/public/uploads'));
+app.use('/uploads/health-records', cors(), express.static(__dirname + '/public/uploads/health-records'));
 
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/healthcare360';
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -52,12 +54,36 @@ async function getGeminiAnalysis(prompt) {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/gemini-chat', require('./routes/gemini'));
 app.use('/api/mood', require('./routes/mood'));
+const resourcesRoute = require('./routes/resources');
+console.log('Resources route loaded');
+app.use('/api/resources', resourcesRoute);
+app.use('/api/counselors', require('./routes/counselors'));
+app.use('/api/insights', require('./routes/insights'));
+app.use('/api/sleep-assessment', require('./routes/sleepAssessment'));
+app.use('/api/forum', require('./routes/forum'));
+app.use('/api/visualai', require('./routes/visualai'));
+app.use('/api/chronic', require('./routes/chronic'));
+app.use('/api/health-records', require('./routes/healthRecords'));
+app.use('/api/family', require('./routes/family'));
+app.use('/api/user-dashboard', require('./routes/userDashboard'));
 app.post('/api/analyze-symptoms', async (req, res) => {
   console.log('Received analyze-symptoms request:', req.body);
   const { symptoms, duration, severity } = req.body;
   try {
-    const prompt = `A patient describes: ${symptoms}. Duration: ${duration}. Severity: ${severity}/10. Give a brief, clear AI-powered analysis and possible recommendations.`;
-    const aiResult = await getGeminiAnalysis(prompt);
+    const structuredPrompt = `You are a medical AI assistant. Analyze the following patient symptoms and provide brief, actionable advice:
+
+Patient Symptoms: ${symptoms}
+Duration: ${duration}
+Severity: ${severity}/10
+
+Provide a concise response (2-3 sentences max) with:
+• Brief assessment
+• 1-2 immediate actions to take
+• When to see a doctor
+
+Keep it short and practical. No long explanations.`;
+    
+    const aiResult = await getGeminiAnalysis(structuredPrompt);
     const saved = await SymptomQuery.create({ symptoms, duration, severity, aiResult });
     res.json({ aiResult });
   } catch (err) {
