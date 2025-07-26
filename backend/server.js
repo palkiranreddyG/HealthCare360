@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const multer = require('multer');
 
 const app = express();
 
@@ -12,6 +13,27 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/uploads', express.static(__dirname + '/public/uploads'));
 app.use('/uploads/health-records', cors(), express.static(__dirname + '/public/uploads/health-records'));
+
+// File upload config
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+const upload = multer({ storage });
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file uploaded' });
+  }
+  res.json({
+    message: 'File uploaded successfully',
+    filePath: `/uploads/${req.file.filename}`
+  });
+});
 
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://gkrsolutions77:visionary1@cluster0.kalz47a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
@@ -66,6 +88,7 @@ app.use('/api/chronic', require('./routes/chronic'));
 app.use('/api/health-records', require('./routes/healthRecords'));
 app.use('/api/family', require('./routes/family'));
 app.use('/api/user-dashboard', require('./routes/userDashboard'));
+
 app.post('/api/analyze-symptoms', async (req, res) => {
   console.log('Received analyze-symptoms request:', req.body);
   const { symptoms, duration, severity } = req.body;
@@ -82,7 +105,7 @@ Provide a concise response (2-3 sentences max) with:
 • When to see a doctor
 
 Keep it short and practical. No long explanations.`;
-    
+
     const aiResult = await getGeminiAnalysis(structuredPrompt);
     const saved = await SymptomQuery.create({ symptoms, duration, severity, aiResult });
     res.json({ aiResult });
@@ -129,4 +152,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📊 MongoDB: ${MONGODB_URI}`);
-}); 
+});
